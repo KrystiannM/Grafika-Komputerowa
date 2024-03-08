@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>CPSC 424, Lab 2, Exercise 1</title>
+<style>
+    /* This style section is here to make the canvas more obvious on the page. */
+    body {
+        background-color: #DDDDDD;
+    }
+    canvas {
+        background-color: white;
+        display: block;
+    }
+    #canvasholder {
+        border:2px solid black;
+        float: left;
+    }
+</style>
+<script>
+    "use strict";  // gives improved error-checking in scripts.
+
+    var canvas;
+    var graphics;
+
+    function draw() {
+    graphics.clearRect(0,0,600,600); // Clears the canvas
+    
+    // Blue diamond shape
+    graphics.fillStyle = '#0000FF'; // Blue color for the diamond
+    graphics.beginPath();
+    graphics.moveTo(300, 100); // Top point of the diamond
+    graphics.lineTo(450, 300); // Right point of the diamond
+    graphics.lineTo(300, 490); // Bottom point of the diamond
+    graphics.lineTo(150, 300); // Left point of the diamond
+    graphics.closePath();
+    graphics.fill();
+    
+    // Eyes - White parts
+    graphics.fillStyle = '#FFFFFF'; // White color for the eyes
+    graphics.fillOval(225, 275, 25, 50); // Left eye
+    graphics.fillOval(375, 275, 25, 50); // Right eye
+    
+    // Eyes - Pupils
+    graphics.fillStyle = '#000000'; // Black color for the pupils
+    graphics.fillOval(235, 285, 10, 20); // Left pupil
+    graphics.fillOval(385, 285, 10, 20); // Right pupil
+    
+    // Mouth
+    graphics.fillStyle = '#FF0000'; // Red color for the mouth
+    graphics.beginPath();
+    graphics.arc(300, 375, 50, 0, Math.PI, false); // Half-circle for a smile
+    graphics.fill();
+    
+    // Teeth - two white rectangles on the mouth
+    graphics.fillStyle = '#FFFFFF'; // White color for the teeth
+    graphics.fillRect(280, 375, 20, 25); // Left tooth
+    graphics.fillRect(300, 375, 20, 25); // Right tooth
+
+    // Black line to separate the teeth
+    graphics.fillStyle = '#000000'; // Black color for the line
+    graphics.fillRect(300, 375, 2, 25); // Line between the teeth
+}
+
+
+    function addGraphicsContextExtras(graphics) {
+        graphics.fillOval = function(x, y, horizontalRadius, verticalRadius) {
+            this.beginPath();
+            this.ellipse(x, y, horizontalRadius, verticalRadius, 0, 0, 2 * Math.PI);
+            this.fill();
+        };
+        // Add other custom drawing functions if necessary
+    }
+
+    function init() {
+        try {
+            canvas = document.getElementById("canvas");
+            graphics = canvas.getContext("2d");
+        } catch(e) {
+            document.getElementById("canvasholder").innerHTML =
+               "Canvas graphics is not supported.<br>" +
+               "An error occurred while initializing graphics.";
+        }
+        addGraphicsContextExtras(graphics);
+        draw();
+    }
+</script>
+</head>
+<link href="data:text/css,%3Ais(%5Bid*%3D'google_ads_iframe'%5D%2C%5Bid*%3D'taboola-'%5D%2C.taboolaHeight%2C.taboola-placeholder%2C%23credential_picker_container%2C%23credentials-picker-container%2C%23credential_picker_iframe%2C%5Bid*%3D'google-one-tap-iframe'%5D%2C%23google-one-tap-popup-container%2C.google-one-tap-modal-div%2C%23amp_floatingAdDiv%2C%23ez-content-blocker-container)%20%7Bdisplay%3Anone!important%3Bmin-height%3A0!important%3Bheight%3A0!important%3B%7D" rel="stylesheet" type="text/css"></head>
+<body onload="init()"> <!-- the onload attribute here is what calls the init() function -->
+
+<h2>CS 424, Lab 2, Exercise 1</h2>
+
+<noscript>
+    <!-- This message will be shown in the page if JavaScript is not available. -->
+<p>JavaScript is required to use this page.</p>
+</noscript>
+
+<div id="canvasholder">
+<canvas id="canvas" width="600" height="600">
+    <!-- This message is shown on the page if the browser doesn't support the canvas element. -->
+Canvas not supported.
+</canvas>
+</div>
+
+
+
+<script>mendeleyWebImporter = {
+  downloadPdfs(e,t) { return this._call('downloadPdfs', [e,t]); },
+  open() { return this._call('open', []); },
+  setLoginToken(e) { return this._call('setLoginToken', [e]); },
+  _call(methodName, methodArgs) {
+    const id = Math.random();
+    window.postMessage({ id, token: '0.7410837702584282', methodName, methodArgs }, 'https://e-uczelnia.ath.bielsko.pl');
+    return new Promise(resolve => {
+      const listener = window.addEventListener('message', event => {
+        const data = event.data;
+        if (typeof data !== 'object' || !('result' in data) || data.id !== id) return;
+        window.removeEventListener('message', listener);
+        resolve(data.result);
+      });
+    });
+  }
+};</script></body></html>
